@@ -70,6 +70,6 @@ export const PassagerButton = styled.button`
   border: 1px solid #ccc;
 
   @media (max-width: 420px) {
-    width: 80%;
+    width: 80vw;
   }
 `;

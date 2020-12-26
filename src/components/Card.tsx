@@ -2,6 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import BusaoLogo from "../assets/logo.png";
 
+interface Card {
+  startCity: string;
+  endCity: string;
+  value: number;
+  onRoad: boolean;
+  hour: string;
+  company: string;
+  days: any;
+}
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -71,24 +80,38 @@ export const IndicatorRound = styled.div`
   border-radius: 50%;
   background-color: #27ff4a;
 `;
+export const IndicatorRoundOff = styled.div`
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: #fb8a00;
+`;
 
-const Card: React.FC = () => {
+const Card: React.FC<Card> = ({
+  endCity,
+  hour,
+  startCity,
+  value,
+  company,
+  days,
+}) => {
+  console.log(days);
   return (
     <Container>
       <OnRoad>
         <BusImage src={BusaoLogo} />
-        <OnRoadTitle>Em trânsito? Sim</OnRoadTitle>
+        <OnRoadTitle>{company}</OnRoadTitle>
       </OnRoad>
       <Details>
         <div>
-          <Citys>Pedralva - Itajubá</Citys>
-          <Started>Partida: 9h30</Started>
+          <Citys>
+            {startCity} - {endCity}
+          </Citys>
+          <Started>Partida: {hour}</Started>
         </div>
-        <Price>R$ 13,30</Price>
+        <Price>R$ {value.toString()}</Price>
       </Details>
-      <Status>
-        <IndicatorRound />
-      </Status>
+      <Status>{/* <IndicatorRound /> */}</Status>
     </Container>
   );
 };

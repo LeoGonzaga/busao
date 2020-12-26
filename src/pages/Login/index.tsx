@@ -18,7 +18,7 @@ const Login: React.FC = () => {
       <SubTitle>Horários na palma da sua mão</SubTitle>
       <InputText placeholder="Digite seu email" type="email"></InputText>
       <InputText placeholder="Digite sua senha " type="password"></InputText>
-      <ActionButton>Entrar</ActionButton>
+      <ActionButton disabled>Entrar</ActionButton>
       <Link to="/dashboard">
         <PassagerButton>Sou passageiro</PassagerButton>
       </Link>
