@@ -16,12 +16,19 @@ const Login: React.FC = () => {
       <Logo src={BusaoLogo} />
       <Title>Busão</Title>
       <SubTitle>Horários na palma da sua mão</SubTitle>
-      <InputText placeholder="Digite seu email" type="email"></InputText>
-      <InputText placeholder="Digite sua senha " type="password"></InputText>
-      <ActionButton disabled>Entrar</ActionButton>
       <Link to="/dashboard">
         <PassagerButton>Sou passageiro</PassagerButton>
       </Link>
+      <InputText placeholder="Digite seu email" type="email"></InputText>
+      <InputText placeholder="Digite sua senha " type="password"></InputText>
+
+      <ActionButton
+        onClick={() =>
+          alert("Você não tem permissão para acessar o painel administrativo.")
+        }
+      >
+        Entrar
+      </ActionButton>
     </Container>
   );
 };

@@ -14,7 +14,7 @@ export const Container = styled.div`
 
 export const Logo = styled.img`
   border-radius: 50%;
-  width: 300px;
+  width: 200px;
 `;
 export const Title = styled.h1`
   font-size: 78px;
@@ -44,21 +44,8 @@ export const InputText = styled.input`
 `;
 
 export const ActionButton = styled.button`
-  padding: 15px;
-  width: 424px;
-  margin-top: 20px;
-  border-radius: 5px;
-  background-color: #770606;
-  border: none;
-  color: #fff;
-  font-weight: bold;
+  
 
-  @media (max-width: 420px) {
-    width: 80%;
-  }
-`;
-
-export const PassagerButton = styled.button`
   padding: 15px;
   width: 424px;
   margin: 5px 0;
@@ -68,6 +55,20 @@ export const PassagerButton = styled.button`
   color: #770606;
   font-weight: bold;
   border: 1px solid #ccc;
+
+  @media (max-width: 420px) {
+    width: 80%;
+  }
+`;
+
+export const PassagerButton = styled.button`
+  padding: 15px;
+  width: 424px;
+  border-radius: 5px;
+  background-color: #770606;
+  border: none;
+  color: #fff;
+  font-weight: bold;
 
   @media (max-width: 420px) {
     width: 80vw;

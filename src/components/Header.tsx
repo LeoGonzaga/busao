@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import TuneIcon from "@material-ui/icons/Tune";
 import SearchIcon from "@material-ui/icons/Search";
@@ -28,7 +28,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   align-content: center;
-  width: 100vw;
+  width: 90vw;
   margin: 0 auto;
 `;
 
@@ -56,6 +56,7 @@ export const SearchBar = styled.input`
   padding: 15px;
   border: 1px solid #ccc;
   width: 80%;
+  text-transform: capitalize;
 `;
 
 export const SearchBarButton = styled.button`
@@ -75,6 +76,21 @@ export const SettingsButton = styled.button`
 
 const Header: React.FC = () => {
   const classes = useStyles();
+  const [city, setCity] = useState("");
+
+  const getBusesByCity = async () => {
+    let res = await fetch("https://busao.herokuapp.com/busByCity", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ cityStart: city }),
+    });
+    console.log(res);
+    let resJSON = await res.json();
+    console.log(resJSON);
+  };
   return (
     <Container>
       <Wrapper>
@@ -90,10 +106,17 @@ const Header: React.FC = () => {
         </SettingsButton>
       </Wrapper>
       <SearchBarContainer>
-        <SearchBar placeholder="Buscar por cidade"></SearchBar>
-        <SearchBarButton>
+        {/* <SearchBar
+          placeholder="Buscar por cidade"
+          onChange={(e) => setCity(e.target.value)}
+        ></SearchBar>
+        <SearchBarButton
+          onClick={() => {
+            getBusesByCity();
+          }}
+        >
           <SearchIcon className={classes.root} />
-        </SearchBarButton>
+        </SearchBarButton> */}
       </SearchBarContainer>
     </Container>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import BusaoLogo from "../assets/logo.png";
+import DayButton from "./DayButton";
 
 interface Card {
   startCity: string;
@@ -87,6 +88,8 @@ export const IndicatorRoundOff = styled.div`
   background-color: #fb8a00;
 `;
 
+export const WeekContainer = styled.div``;
+
 const Card: React.FC<Card> = ({
   endCity,
   hour,
@@ -95,7 +98,19 @@ const Card: React.FC<Card> = ({
   company,
   days,
 }) => {
+  let week: any = [];
+
   console.log(days);
+
+  function daysOfWeek() {
+    Object.keys(days).forEach(function (item) {
+      console.log(item + " = " + days[item]);
+      week.push([item, days[item]]);
+    });
+
+    console.log(week);
+  }
+
   return (
     <Container>
       <OnRoad>
@@ -109,7 +124,16 @@ const Card: React.FC<Card> = ({
           </Citys>
           <Started>Partida: {hour}</Started>
         </div>
-        <Price>R$ {value.toString()}</Price>
+        <Price>R$ {value.toFixed(2).toString()}</Price>
+        <WeekContainer>
+          {daysOfWeek()}
+          {week.map((i: any) => {
+            console.log(i[0], i[1]);
+            if (i[1]) {
+              return <DayButton day={i[0]} />;
+            }
+          })}
+        </WeekContainer>
       </Details>
       <Status>{/* <IndicatorRound /> */}</Status>
     </Container>

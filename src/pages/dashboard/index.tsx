@@ -24,7 +24,7 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const getAllBuses = async () => {
-    let res = await fetch("http://localhost:3003/Buses");
+    let res = await fetch("https://busao.herokuapp.com/Buses");
     console.log(res);
     let resJSON = await res.json();
     console.log(resJSON);
@@ -32,10 +32,6 @@ const Dashboard: React.FC = () => {
       alert(resJSON.message);
     } else {
       setBuses(resJSON);
-      // var d = new Date();
-      // var n = d.getDay();
-
-      // console.log(n);
     }
   };
   return (
