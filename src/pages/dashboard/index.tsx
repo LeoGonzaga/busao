@@ -16,6 +16,7 @@ interface CardProps {
 
 const Dashboard: React.FC = (props: any) => {
   const [buses, setBuses] = useState([]);
+  const [city, setCity] = useState("");
   useEffect(() => {
     try {
       getAllBuses();
@@ -38,6 +39,7 @@ const Dashboard: React.FC = (props: any) => {
 
   const getBusesByCity = async (e: any) => {
     console.log("cliquei", e);
+    setCity(e);
     let res = await fetch("https://busao.herokuapp.com/busByCity", {
       headers: {
         Accept: "application/json",
@@ -61,6 +63,20 @@ const Dashboard: React.FC = (props: any) => {
       <Header getBus={(e: any) => getBusesByCity(e)}></Header>
 
       <Container>
+        {city ? (
+          <>
+            <h2>Busca por:{city}</h2>
+            <button
+              onClick={() => {
+                getAllBuses();
+                setCity("");
+              }}
+            >
+              X
+            </button>
+          </>
+        ) : null}
+
         {buses && buses.length > 0
           ? buses?.map((bus: CardProps, i) => {
               return (
