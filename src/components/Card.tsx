@@ -100,15 +100,15 @@ const Card: React.FC<Card> = ({
 }) => {
   let week: any = [];
 
-  console.log(days);
+  // console.log(days);
 
   function daysOfWeek() {
     Object.keys(days).forEach(function (item) {
-      console.log(item + " = " + days[item]);
+      // console.log(item + " = " + days[item]);
       week.push([item, days[item]]);
     });
 
-    console.log(week);
+    // console.log(week);
   }
 
   return (
@@ -127,10 +127,10 @@ const Card: React.FC<Card> = ({
         <Price>R$ {value.toFixed(2).toString()}</Price>
         <WeekContainer>
           {daysOfWeek()}
-          {week.map((i: any) => {
-            console.log(i[0], i[1]);
+          {week.map((i: any, index: number) => {
+            // console.log(i[0], i[1]);
             if (i[1]) {
-              return <DayButton day={i[0]} />;
+              return <DayButton day={i[0]} key={index} />;
             }
           })}
         </WeekContainer>

@@ -5,6 +5,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import BusaoLogo from "../assets/logo.png";
 
 import { makeStyles, createStyles } from "@material-ui/core/styles";
+import SwipeableTemporaryDrawer from "./Drawer";
 
 const useStyles = makeStyles((theme: any) =>
   createStyles({
@@ -74,39 +75,32 @@ export const SettingsButton = styled.button`
   border: none;
 `;
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  getBus: any;
+}
+
+const Header: React.FC<HeaderProps> = (props) => {
   const classes = useStyles();
   const [city, setCity] = useState("");
 
   const getBusesByCity = async () => {
-    let res = await fetch("https://busao.herokuapp.com/busByCity", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({ cityStart: city }),
-    });
-    console.log(res);
-    let resJSON = await res.json();
-    console.log(resJSON);
+   
+    props.getBus(city);
   };
+
   return (
     <Container>
       <Wrapper>
         <LogoContainer>
           <Logo src={BusaoLogo}></Logo>
-          <Username>Oi, Usuário</Username>
         </LogoContainer>
 
-        <SettingsButton
-          onClick={() => alert("Funcionalidade em desenvolvimento.")}
-        >
+        <SettingsButton onClick={() => {}}>
           <TuneIcon className={classes.root} />
         </SettingsButton>
       </Wrapper>
       <SearchBarContainer>
-        {/* <SearchBar
+        <SearchBar
           placeholder="Buscar por cidade"
           onChange={(e) => setCity(e.target.value)}
         ></SearchBar>
@@ -116,8 +110,9 @@ const Header: React.FC = () => {
           }}
         >
           <SearchIcon className={classes.root} />
-        </SearchBarButton> */}
+        </SearchBarButton>
       </SearchBarContainer>
+      {/* <SwipeableTemporaryDrawer open={open}></SwipeableTemporaryDrawer> */}
     </Container>
   );
 };

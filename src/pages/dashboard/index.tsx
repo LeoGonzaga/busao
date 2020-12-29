@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../components/Card";
+import SwipeableTemporaryDrawer from "../../components/Drawer";
 import Header from "../../components/Header";
 import { Container, Wrapper, Grid, Weather } from "./styles";
 
@@ -13,7 +14,7 @@ interface CardProps {
   days: any;
 }
 
-const Dashboard: React.FC = () => {
+const Dashboard: React.FC = (props: any) => {
   const [buses, setBuses] = useState([]);
   useEffect(() => {
     try {
@@ -27,6 +28,26 @@ const Dashboard: React.FC = () => {
     let res = await fetch("https://busao.herokuapp.com/Buses");
     console.log(res);
     let resJSON = await res.json();
+    // console.log(resJSON);
+    if (resJSON.message) {
+      alert(resJSON.message);
+    } else {
+      setBuses(resJSON);
+    }
+  };
+
+  const getBusesByCity = async (e: any) => {
+    console.log("cliquei", e);
+    let res = await fetch("https://busao.herokuapp.com/busByCity", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ cityStart: e }),
+    });
+    console.log(res);
+    let resJSON = await res.json();
     console.log(resJSON);
     if (resJSON.message) {
       alert(resJSON.message);
@@ -34,9 +55,10 @@ const Dashboard: React.FC = () => {
       setBuses(resJSON);
     }
   };
+
   return (
     <Wrapper>
-      <Header></Header>
+      <Header getBus={(e: any) => getBusesByCity(e)}></Header>
 
       <Container>
         {buses && buses.length > 0
