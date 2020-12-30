@@ -128,10 +128,9 @@ const Card: React.FC<Card> = ({
         <WeekContainer>
           {daysOfWeek()}
           {week.map((i: any, index: number) => {
-            // console.log(i[0], i[1]);
-            if (i[1]) {
-              return <DayButton day={i[0]} key={index} />;
-            }
+            console.log(i[0], i[1]);
+
+            return <DayButton day={i[0]} road={i[1]} key={index} />;
           })}
         </WeekContainer>
       </Details>

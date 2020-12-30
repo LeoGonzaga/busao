@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../components/Card";
-import SwipeableTemporaryDrawer from "../../components/Drawer";
 import Header from "../../components/Header";
-import { Container, Wrapper, Grid, Weather } from "./styles";
+import {
+  Container,
+  Wrapper,
+  ClearText,
+  ClearButton,
+  ClearCity,
+  ClearContainer,
+} from "./styles";
 
 interface CardProps {
   cityStart: string;
@@ -65,15 +71,18 @@ const Dashboard: React.FC = (props: any) => {
       <Container>
         {city ? (
           <>
-            <h2>Busca por:{city}</h2>
-            <button
+            <ClearContainer>
+              <ClearText>Saindo de:</ClearText>
+              <ClearCity>{city}</ClearCity>
+            </ClearContainer>
+            <ClearButton
               onClick={() => {
                 getAllBuses();
                 setCity("");
               }}
             >
-              X
-            </button>
+              Limpar busca
+            </ClearButton>
           </>
         ) : null}
 
