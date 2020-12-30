@@ -17,7 +17,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   align-content: center;
-  width: 100vw;
+  width: 90vw;
   height: 100vh;
   margin: 0 auto;
 `;
@@ -35,7 +35,7 @@ export const ClearContainer = styled.div`
   flex-direction: column;
   text-align: center;
   width: 40%;
-  margin-top: 20px;
+  margin: 10px 0px;
 `;
 
 export const ClearText = styled.h1`
@@ -44,15 +44,16 @@ export const ClearText = styled.h1`
 `;
 
 export const ClearCity = styled.h1`
-  color: #770606;
+  color: #161032;
   font-size: 24px;
   font-weight: bold;
 `;
 export const ClearButton = styled.button`
   width: 50%;
   border-radius: 5px;
-  background-color: #770606;
-  color: #fff;
-  border: none;
+  background-color: #fff;
+  color: #161032;
+  border: 1px solid #161032;
   padding: 10px;
+  font-weight: bold;
 `;

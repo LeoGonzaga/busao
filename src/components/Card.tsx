@@ -4,13 +4,18 @@ import BusaoLogo from "../assets/logo.png";
 import DayButton from "./DayButton";
 
 interface Card {
-  startCity: string;
-  endCity: string;
+  startCity?: string;
+  endCity?: string;
   value: number;
-  onRoad: boolean;
-  hour: string;
-  company: string;
-  days: any;
+  onRoad?: boolean;
+  hour?: string;
+  company?: string;
+  days?: any;
+  color?: string;
+}
+
+interface ColorCard {
+  color?: string;
 }
 export const Container = styled.div`
   display: flex;
@@ -20,12 +25,13 @@ export const Container = styled.div`
   width: 60%;
   height: 250px;
   margin: 10px auto;
-  background-color: #770606;
+  background-color: ${(props: ColorCard) =>
+    props.color ? "#161032" : "#770606"};
   color: #fff;
   padding: 30px;
   border-radius: 10px;
 
-  @media (max-width: 600px) {
+  @media (max-width: 780px) {
     flex-direction: column;
     justify-content: center;
   }
@@ -52,14 +58,13 @@ export const Details = styled.div`
   justify-content: space-between;
   align-items: center;
   flex: 1;
-  height: 200px;
-  @media (max-width: 400px) {
+  @media (max-width: 800px) {
     justify-content: center;
   }
 `;
 
 export const Citys = styled.h1`
-  font-size: 24px;
+  font-size: 20px;
   text-transform: uppercase;
   @media (max-width: 400px) {
     font-size: 14px;
@@ -67,12 +72,12 @@ export const Citys = styled.h1`
 `;
 
 export const Started = styled.h2`
-  font-size: 20px;
+  font-size: 15px;
   text-transform: uppercase;
 `;
 
 export const Price = styled.h1`
-  font-size: 42px;
+  font-size: 32px;
 `;
 export const Status = styled.div``;
 export const IndicatorRound = styled.div`
@@ -97,22 +102,18 @@ const Card: React.FC<Card> = ({
   value,
   company,
   days,
+  color,
 }) => {
   let week: any = [];
 
-  // console.log(days);
-
   function daysOfWeek() {
     Object.keys(days).forEach(function (item) {
-      // console.log(item + " = " + days[item]);
       week.push([item, days[item]]);
     });
-
-    // console.log(week);
   }
 
   return (
-    <Container>
+    <Container color={color}>
       <OnRoad>
         <BusImage src={BusaoLogo} />
         <OnRoadTitle>{company}</OnRoadTitle>
@@ -128,7 +129,7 @@ const Card: React.FC<Card> = ({
         <WeekContainer>
           {daysOfWeek()}
           {week.map((i: any, index: number) => {
-            console.log(i[0], i[1]);
+            // console.log(i[0], i[1]);
 
             return <DayButton day={i[0]} road={i[1]} key={index} />;
           })}

@@ -5,7 +5,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import BusaoLogo from "../assets/logo.png";
 
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import SwipeableTemporaryDrawer from "./Drawer";
 
 const useStyles = makeStyles((theme: any) =>
   createStyles({
@@ -29,7 +28,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   align-content: center;
-  width: 90vw;
+  width: 80vw;
   margin: 0 auto;
 `;
 
@@ -44,14 +43,15 @@ export const Logo = styled.img`
 `;
 export const Username = styled.h1`
   font-size: 23px;
-  color: #770606;
+  color: #161032;
   font-weight: bold;
 `;
 
 export const SearchBarContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 70%;
+  width: 50vw;
+  min-width: 200px;
 `;
 export const SearchBar = styled.input`
   padding: 15px;
@@ -64,14 +64,14 @@ export const SearchBarButton = styled.button`
   width: 20%;
   padding: 10px;
   color: #fff;
-  background-color: #770606;
+  background-color: #161032;
   border: none;
 `;
 export const SettingsButton = styled.button`
   width: 40px;
   height: 40px;
   border-radius: 4px;
-  background-color: #770606;
+  background-color: #161032;
   border: none;
 `;
 
@@ -81,11 +81,15 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = (props) => {
   const classes = useStyles();
-  const [city, setCity] = useState("");
+  const [search, setSearch] = useState("");
 
-  const getBusesByCity = async () => {
-   
-    props.getBus(city);
+  const getBusesBysearch = async () => {
+    props.getBus(search);
+  };
+
+  const onFormSubmit = (e: any) => {
+    e.preventDefault();
+    console.log("enter");
   };
 
   return (
@@ -94,25 +98,32 @@ const Header: React.FC<HeaderProps> = (props) => {
         <LogoContainer>
           <Logo src={BusaoLogo}></Logo>
         </LogoContainer>
-
-        <SettingsButton onClick={() => {}}>
+        <SettingsButton
+          onClick={() => {
+            alert("Filtros em desenvolvimento. ");
+          }}
+        >
           <TuneIcon className={classes.root} />
         </SettingsButton>
       </Wrapper>
-      <SearchBarContainer>
-        <SearchBar
-          placeholder="Buscar por cidade"
-          onChange={(e) => setCity(e.target.value)}
-        ></SearchBar>
-        <SearchBarButton
-          onClick={() => {
-            getBusesByCity();
-          }}
-        >
-          <SearchIcon className={classes.root} />
-        </SearchBarButton>
-      </SearchBarContainer>
-      {/* <SwipeableTemporaryDrawer open={open}></SwipeableTemporaryDrawer> */}
+      <form onSubmit={(e) => onFormSubmit(e)}>
+        <SearchBarContainer>
+          <SearchBar
+            value={search}
+            placeholder="Buscar por cidade"
+            onChange={(e) => setSearch(e.target.value)}
+          ></SearchBar>
+          <SearchBarButton
+            type="submit"
+            onClick={async () => {
+              await getBusesBysearch();
+              setSearch("");
+            }}
+          >
+            <SearchIcon className={classes.root} />
+          </SearchBarButton>
+        </SearchBarContainer>
+      </form>
     </Container>
   );
 };

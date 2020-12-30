@@ -13,10 +13,13 @@ export const Container = styled.button`
   border-radius: 50%;
   margin: 3px;
   color: #fff;
+  &:focus {
+    border: none;
+    outline: none;
+  }
 `;
 
 const DayButton: React.FC<Props> = (props) => {
-  console.log(props);
   return <Container road={props.road}>{props.day.substring(0, 1)}</Container>;
 };
 

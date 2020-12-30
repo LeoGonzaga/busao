@@ -18,7 +18,7 @@ export const Logo = styled.img`
 `;
 export const Title = styled.h1`
   font-size: 78px;
-  color: #770606;
+  color: #161032;
 `;
 
 export const SubTitle = styled.h1`
@@ -52,7 +52,7 @@ export const ActionButton = styled.button`
   border-radius: 5px;
   background-color: #fff;
   border: none;
-  color: #770606;
+  color: #161032;
   font-weight: bold;
   border: 1px solid #ccc;
 
@@ -65,7 +65,7 @@ export const PassagerButton = styled.button`
   padding: 15px;
   width: 424px;
   border-radius: 5px;
-  background-color: #770606;
+  background-color: #161032;
   border: none;
   color: #fff;
   font-weight: bold;
