@@ -20,6 +20,8 @@ export const Container = styled.div`
   width: 90vw;
   height: 100vh;
   margin: 0 auto;
+  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+  border-radius: 4px;
 `;
 export const Weather = styled.div`
   width: 30vw;

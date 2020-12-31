@@ -5,6 +5,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import BusaoLogo from "../assets/logo.png";
 
 import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: any) =>
   createStyles({
@@ -116,13 +117,15 @@ const Header: React.FC<HeaderProps> = (props) => {
         <LogoContainer>
           <Logo src={BusaoLogo}></Logo>
         </LogoContainer>
-        <SettingsButton
-          onClick={() => {
-            alert("Filtros em desenvolvimento. ");
-          }}
-        >
-          <TuneIcon className={classes.root} />
-        </SettingsButton>
+        <Link to="/create">
+          <SettingsButton
+            onClick={() => {
+              alert("Filtros em desenvolvimento. ");
+            }}
+          >
+            <TuneIcon className={classes.root} />
+          </SettingsButton>
+        </Link>
       </Wrapper>
       <form onSubmit={(e) => onFormSubmit(e)}>
         <SearchBarContainer>
