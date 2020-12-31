@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import TuneIcon from "@material-ui/icons/Tune";
 import SearchIcon from "@material-ui/icons/Search";
@@ -82,7 +82,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = (props) => {
   const classes = useStyles();
   const [search, setSearch] = useState("");
-
+  const [citys, setCitys] = useState([]);
   const getBusesBysearch = async () => {
     props.getBus(search);
   };
@@ -91,6 +91,24 @@ const Header: React.FC<HeaderProps> = (props) => {
     e.preventDefault();
     console.log("enter");
   };
+
+  const getAllCitysForDataList = async () => {
+    try {
+      let res = await fetch("https://busao.herokuapp.com/Names");
+      let resJSON = await res.json();
+
+      console.log(resJSON);
+      if (resJSON) {
+        setCitys(resJSON);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getAllCitysForDataList();
+  }, []);
 
   return (
     <Container>
@@ -110,9 +128,19 @@ const Header: React.FC<HeaderProps> = (props) => {
         <SearchBarContainer>
           <SearchBar
             value={search}
+            type="text"
+            list="data"
             placeholder="Buscar por cidade"
             onChange={(e) => setSearch(e.target.value)}
           ></SearchBar>
+
+          <datalist id="data">
+            {citys && citys.length > 0
+              ? citys.map((city, index) => {
+                  return <option key={index} value={city} />;
+                })
+              : null}
+          </datalist>
           <SearchBarButton
             type="submit"
             onClick={async () => {
