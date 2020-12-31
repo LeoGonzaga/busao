@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Card from "../../components/Card";
 import CheckDays from "../../components/CheckDays";
 import {
   Wrapper,
@@ -15,7 +16,7 @@ const Create: React.FC = () => {
   const [value, setValue] = useState("");
   const [company, setCompany] = useState("");
   const [search, setSearch] = useState("");
-
+  const [buses, setBuses] = useState([]);
   const daysArray: any = [];
   let json = {
     Seg: false,
@@ -71,14 +72,37 @@ const Create: React.FC = () => {
     };
   };
 
+  const getAllBuses = async () => {
+    let res = await fetch("https://busao.herokuapp.com/Buses");
+    console.log(res);
+    let resJSON = await res.json();
+    // console.log(resJSON);
+    if (resJSON.message) {
+      alert(resJSON.message);
+    } else {
+      setBuses(resJSON);
+    }
+  };
+
+  useEffect(() => {
+    try {
+      getAllBuses();
+    } catch (e) {
+      console.log("Entrou no catch" + e);
+    }
+  }, []);
+
   return (
     <Wrapper>
-      <Container>teste</Container>
+      {/* <Container>
+        <h2>Em desenvolvimento</h2>
+      </Container> */}
       <Container>
+        <h2>Cadastrar jornada</h2>
         <InputText placeholder="Cidade de partida" />
         <InputText placeholder="Cidade de destino" />
-        <InputText placeholder="Valor da passagem" />
-        <InputText placeholder="Horário" />
+        <InputText placeholder="Valor da passagem - R$ 3,00" type="number" />
+        <InputText placeholder="Horário - 10h00" />
 
         <InputText
           value={search}

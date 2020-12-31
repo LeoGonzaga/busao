@@ -17,6 +17,8 @@ export const Container = styled.div`
   display: grid;
   margin: 0 auto;
   padding: 40px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 4px;
 `;
 
 export const InputText = styled.input`

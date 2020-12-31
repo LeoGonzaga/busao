@@ -117,7 +117,7 @@ const Header: React.FC<HeaderProps> = (props) => {
         <LogoContainer>
           <Logo src={BusaoLogo}></Logo>
         </LogoContainer>
-        <Link to="/create">
+        {/* <Link to="/create"> */}
           <SettingsButton
             onClick={() => {
               alert("Filtros em desenvolvimento. ");
@@ -125,7 +125,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           >
             <TuneIcon className={classes.root} />
           </SettingsButton>
-        </Link>
+        {/* </Link> */}
       </Wrapper>
       <form onSubmit={(e) => onFormSubmit(e)}>
         <SearchBarContainer>
