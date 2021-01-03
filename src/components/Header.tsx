@@ -78,6 +78,7 @@ export const SettingsButton = styled.button`
 
 interface HeaderProps {
   getBus: any;
+  isAdmin: boolean;
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
@@ -117,15 +118,18 @@ const Header: React.FC<HeaderProps> = (props) => {
         <LogoContainer>
           <Logo src={BusaoLogo}></Logo>
         </LogoContainer>
-        {/* <Link to="/create"> */}
-          <SettingsButton
-            onClick={() => {
-              alert("Filtros em desenvolvimento. ");
-            }}
-          >
-            <TuneIcon className={classes.root} />
-          </SettingsButton>
-        {/* </Link> */}
+
+        {props.isAdmin ? (
+          <Link to="/create">
+            <SettingsButton
+              onClick={() => {
+                alert("Filtros em desenvolvimento. ");
+              }}
+            >
+              <TuneIcon className={classes.root} />
+            </SettingsButton>
+          </Link>
+        ) : null}
       </Wrapper>
       <form onSubmit={(e) => onFormSubmit(e)}>
         <SearchBarContainer>

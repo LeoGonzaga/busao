@@ -11,7 +11,6 @@ import { GlobalStyle } from "./global/global";
 import Login from "./pages/Login/index";
 import Dashboard from "./pages/dashboard/index";
 import CreateJourney from "./pages/Create/index";
-import Error404 from "./pages/404/index";
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
 
@@ -26,6 +25,7 @@ function App() {
         userHasAuthenticated(true);
       } else {
         console.log("Sem permissão");
+        userHasAuthenticated(false);
       }
     } catch (e) {
       alert(e);
@@ -41,7 +41,7 @@ function App() {
             <Login />
           </Route>
           <Route path="/dashboard">
-            <Dashboard />
+            <Dashboard auth={isAuthenticated} />
           </Route>
           {isAuthenticated ? (
             <Route path="/create">

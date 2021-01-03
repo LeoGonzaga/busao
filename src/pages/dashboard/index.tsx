@@ -20,7 +20,10 @@ interface CardProps {
   days: any;
 }
 
-const Dashboard: React.FC = (props: any) => {
+interface Dash {
+  auth: boolean;
+}
+const Dashboard: React.FC<Dash> = (props: any) => {
   const [buses, setBuses] = useState([]);
   const [city, setCity] = useState("");
 
@@ -37,6 +40,7 @@ const Dashboard: React.FC = (props: any) => {
 
   useEffect(() => {
     try {
+      console.log(props);
       getAllBuses();
     } catch (e) {
       console.log("Entrou no catch" + e);
@@ -45,7 +49,7 @@ const Dashboard: React.FC = (props: any) => {
 
   const getAllBuses = async () => {
     let res = await fetch("https://busao.herokuapp.com/Buses");
-    console.log(res);
+    // console.log(res);
     let resJSON = await res.json();
     // console.log(resJSON);
     if (resJSON.message) {
@@ -66,9 +70,9 @@ const Dashboard: React.FC = (props: any) => {
       method: "POST",
       body: JSON.stringify({ cityStart: e }),
     });
-    console.log(res);
+    // console.log(res);
     let resJSON = await res.json();
-    console.log(resJSON);
+    // console.log(resJSON);
     if (resJSON.message) {
       alert(resJSON.message);
     } else {
@@ -78,7 +82,10 @@ const Dashboard: React.FC = (props: any) => {
 
   return (
     <Wrapper>
-      <Header getBus={(e: any) => getBusesByCity(e)}></Header>
+      <Header
+        isAdmin={props.auth}
+        getBus={(e: any) => getBusesByCity(e)}
+      ></Header>
 
       <Container>
         {city ? (
