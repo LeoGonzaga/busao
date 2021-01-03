@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
+import BusCard from "../../components/BusCard";
 import Card from "../../components/Card";
 import CheckDays from "../../components/CheckDays";
+import CollapsibleTable from "../../components/Table";
 import {
   Wrapper,
   Container,
+  TitlePage,
   InputText,
   PassagerButton,
   WeekContinaer,
+  ContainerCards,
   Text,
+  JourneyTitle,
+  SearchBarContainer,
+  SearchBar,
+  SearchBarButton,
 } from "./styles";
 
 const Create: React.FC = () => {
@@ -94,16 +102,12 @@ const Create: React.FC = () => {
 
   return (
     <Wrapper>
-      {/* <Container>
-        <h2>Em desenvolvimento</h2>
-      </Container> */}
       <Container>
-        <h2>Cadastrar jornada</h2>
+        <TitlePage>Cadastrar jornada</TitlePage>
         <InputText placeholder="Cidade de partida" />
         <InputText placeholder="Cidade de destino" />
         <InputText placeholder="Valor da passagem - R$ 3,00" type="number" />
         <InputText placeholder="Horário - 10h00" />
-
         <InputText
           value={search}
           type="text"
@@ -152,6 +156,23 @@ const Create: React.FC = () => {
           Criar jornada
         </PassagerButton>
       </Container>
+
+      <ContainerCards>
+        <JourneyTitle>Jornadas</JourneyTitle>
+        <SearchBarContainer>
+          <SearchBar placeholder="Buscar por cidade ou horário"></SearchBar>
+        </SearchBarContainer>
+        <BusCard />
+        <BusCard />
+        <BusCard />
+        <BusCard />
+        <BusCard />
+        <BusCard />
+        <BusCard />
+        <BusCard />
+        <BusCard />
+        <BusCard />
+      </ContainerCards>
     </Wrapper>
   );
 };

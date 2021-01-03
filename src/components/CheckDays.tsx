@@ -10,7 +10,7 @@ interface Props {
 export const Container = styled.button`
   width: 35px;
   height: 35px;
-  background-color: ${(props: Props) => (props.check ? "green" : "#ccc")};
+  background-color: ${(props: Props) => (props.check ? "#161032" : "#ccc")};
   border: none;
   border-radius: 50%;
   margin: 3px;
