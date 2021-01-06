@@ -9,12 +9,14 @@ import {
   TitlePage,
   InputText,
   PassagerButton,
+  ActionButton,
   WeekContinaer,
   ContainerCards,
   Text,
   JourneyTitle,
   SearchBarContainer,
   SearchBar,
+  BusContainer,
   SearchBarButton,
 } from "./styles";
 
@@ -25,6 +27,9 @@ const Create: React.FC = () => {
   const [company, setCompany] = useState("");
   const [search, setSearch] = useState("");
   const [buses, setBuses] = useState([]);
+
+  const [city, setCity] = useState("");
+
   const daysArray: any = [];
   let json = {
     Seg: false,
@@ -80,17 +85,16 @@ const Create: React.FC = () => {
     };
   };
 
-  const getAllBuses = async () => {
-    let res = await fetch("https://busao.herokuapp.com/Buses");
-    console.log(res);
-    let resJSON = await res.json();
-    // console.log(resJSON);
-    if (resJSON.message) {
-      alert(resJSON.message);
-    } else {
-      setBuses(resJSON);
-    }
-  };
+  let colors = [
+    "#623CEA",
+    "#54426B",
+    "#FCE762",
+    "#161032",
+    "#C42021",
+    "#2B2D42",
+    "#F7EC59",
+    "#F15025",
+  ];
 
   useEffect(() => {
     try {
@@ -100,10 +104,43 @@ const Create: React.FC = () => {
     }
   }, []);
 
+  const getAllBuses = async () => {
+    let res = await fetch("https://busao.herokuapp.com/Buses");
+    // console.log(res);
+    let resJSON = await res.json();
+    // console.log(resJSON);
+    if (resJSON.message) {
+      alert(resJSON.message);
+    } else {
+      setBuses(resJSON);
+    }
+  };
+
+  const getBusesByCity = async (e: any) => {
+    console.log("cliquei", e);
+    setCity(e);
+    let res = await fetch("https://busao.herokuapp.com/busByCity", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ cityStart: e }),
+    });
+    // console.log(res);
+    let resJSON = await res.json();
+    // console.log(resJSON);
+    if (resJSON.message) {
+      alert(resJSON.message);
+    } else {
+      setBuses(resJSON);
+    }
+  };
+
   return (
     <Wrapper>
       <Container>
-        <TitlePage>Cadastrar jornada</TitlePage>
+        <TitlePage>Criar uma nova jornada</TitlePage>
         <InputText placeholder="Cidade de partida" />
         <InputText placeholder="Cidade de destino" />
         <InputText placeholder="Valor da passagem - R$ 3,00" type="number" />
@@ -148,30 +185,34 @@ const Create: React.FC = () => {
           />
         </WeekContinaer>
 
-        <PassagerButton
+        <ActionButton
+          solid
           onClick={() => {
             console.log(json);
           }}
         >
           Criar jornada
-        </PassagerButton>
+        </ActionButton>
       </Container>
 
       <ContainerCards>
-        <JourneyTitle>Jornadas</JourneyTitle>
         <SearchBarContainer>
           <SearchBar placeholder="Buscar por cidade ou horário"></SearchBar>
         </SearchBarContainer>
-        <BusCard />
-        <BusCard />
-        <BusCard />
-        <BusCard />
-        <BusCard />
-        <BusCard />
-        <BusCard />
-        <BusCard />
-        <BusCard />
-        <BusCard />
+        <BusContainer>
+          {buses && buses.length > 0
+            ? buses?.map((bus: any, i) => {
+                return (
+                  <BusCard
+                    key={i}
+                    cityStart={bus.cityStart}
+                    cityEnd={bus.cityEnd}
+                    hour={bus.hour}
+                  />
+                );
+              })
+            : null}
+        </BusContainer>
       </ContainerCards>
     </Wrapper>
   );

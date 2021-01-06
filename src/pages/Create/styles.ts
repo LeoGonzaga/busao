@@ -1,127 +1,101 @@
 import styled from "styled-components";
 
-export const Grid = styled.div`
-  display: flex;
-  background-color: #000;
-  width: 100vw;
-`;
+interface Props {
+  solid?: boolean;
+}
 export const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: center;
 
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
-    margin: 0 auto;
+  @media (max-width: 1000px) {
+    flex-direction: column;
   }
 `;
 export const Container = styled.div`
-  display: grid;
-  margin: 0 auto;
-  padding: 40px;
-  height: 90vh;
-  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ContainerCards = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  width: 90%;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  margin-top: 30px;
+`;
+
+export const BusContainer = styled.div`
+  height: 500px;
+  padding: 20px 10px;
   overflow-y: scroll;
   align-items: center;
-  height: 600px;
+  justify-content: center;
+  align-content: center;
 `;
 
 export const TitlePage = styled.h1`
-  font-weight: bold;
+  font-size: 24px;
   color: #161032;
-  margin-bottom: 10px;
+  padding: 10px;
 `;
 
-export const JourneyTitle = styled.h1`
-  font-weight: bold;
-  color: #161032;
-  padding: 35px;
-`;
+export const JourneyTitle = styled.h1``;
 export const InputText = styled.input`
   border: 1px solid #ccc;
-  padding: 5px;
+  padding: 15px;
   width: 389px;
+  max-width: 389px;
   margin: 5px 0;
   border-radius: 5px;
   font-size: 14px;
   text-align: center;
-
+  outline-color: #161032;
   @media (max-width: 420px) {
-    width: 90%;
+    width: 85%;
     margin: 5px 10px;
-  }
-
-  &:focus {
-    outline-color: #161032;
   }
 `;
 
 export const Text = styled.h1`
-  font-size: 15px;
+  font-size: 14px;
   color: #161032;
-  padding: 10px 0px 0px 0px;
+  padding: 10px;
 `;
 export const WeekContinaer = styled.div`
-  display: flex;
   padding: 10px;
+  margin-bottom: 20px;
 `;
 
 export const ActionButton = styled.button`
-  padding: 5px;
+  padding: 15px;
+  width: 424px;
+  max-width: 424px;
   margin: 5px 0;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: ${(props: Props) => (props.solid ? "#161032" : "#fff")};
   border: none;
-  color: #161032;
+  color: ${(props: Props) => (props.solid ? "#fff" : "#161032")};
   font-weight: bold;
   border: 1px solid #ccc;
 
   @media (max-width: 420px) {
-    width: 80%;
+    width: 95%;
   }
 `;
 
-export const PassagerButton = styled.button`
-  padding: 5px;
-  border-radius: 5px;
-  background-color: #161032;
-  border: 1px solid #fff;
-  color: #fff;
-  font-weight: bold;
-  width: 100%;
-  transition: 0.4s;
-  @media (max-width: 420px) {
-    width: 80vw;
-  }
+export const PassagerButton = styled.button``;
 
-  &:hover {
-    background-color: #fff;
-    border: 1px solid #161032;
-    color: #161032;
-  }
-`;
-
-export const SearchBarContainer = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-`;
+export const SearchBarContainer = styled.div``;
 export const SearchBar = styled.input`
-  padding: 15px;
+  width: 80vw;
   border: 1px solid #ccc;
-  width: 80%;
+  padding: 15px;
+  outline-color: #161032;
+  max-width: 500px;
 `;
 
-export const SearchBarButton = styled.button`
-  width: 20%;
-  padding: 10px;
-  color: #fff;
-  background-color: #161032;
-  border: none;
-`;
+export const SearchBarButton = styled.button``;

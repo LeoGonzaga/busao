@@ -8,9 +8,10 @@ import {
 } from "react-router-dom";
 
 import { GlobalStyle } from "./global/global";
-import Login from "./pages/Login/index";
+import SelectPermission from "./pages/SelectPermission/index";
 import Dashboard from "./pages/dashboard/index";
 import CreateJourney from "./pages/Create/index";
+import Login from "./pages/Login/index";
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
 
@@ -38,12 +39,15 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact>
+            <SelectPermission />
+          </Route>
+          <Route path="/login">
             <Login />
           </Route>
           <Route path="/dashboard">
             <Dashboard auth={isAuthenticated} />
           </Route>
-          {isAuthenticated ? (
+          {!isAuthenticated ? (
             <Route path="/create">
               <CreateJourney />
             </Route>

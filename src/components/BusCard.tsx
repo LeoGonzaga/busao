@@ -1,10 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
+export interface Card {
+  cityStart?: string;
+  cityEnd?: string;
+  hour?: string;
+}
+
 const Container = styled.button`
   border: 1px solid #161032;
-  width: 90%;
-  padding: 30px 0px;
+  width: 100%;
+  padding: 30px 20px;
   text-align: center;
   margin: 10px 0;
   border-radius: 4px;
@@ -18,8 +24,13 @@ const Container = styled.button`
     color: #161032;
   }
 `;
-const BusCard: React.FC = () => {
-  return <Container>Pedralva - Itajuba - 19h</Container>;
+
+const BusCard: React.FC<Card> = ({ cityStart, cityEnd, hour }) => {
+  return (
+    <Container>
+      De {cityStart} para {cityEnd} - {hour}
+    </Container>
+  );
 };
 
 export default BusCard;

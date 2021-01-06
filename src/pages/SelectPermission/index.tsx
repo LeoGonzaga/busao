@@ -9,8 +9,7 @@ import {
 } from "./styles";
 import BusaoLogo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
-
-const Login: React.FC = () => {
+const SelectPermission: React.FC = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
@@ -37,29 +36,14 @@ const Login: React.FC = () => {
       <Logo src={BusaoLogo} />
       <Title>Busão</Title>
       <SubTitle>Horários na palma da sua mão</SubTitle>
-
-      <InputText
-        value={email}
-        placeholder="Digite seu email"
-        type="email"
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-      ></InputText>
-      <InputText
-        value={pass}
-        placeholder="Digite sua senha "
-        type="password"
-        onChange={(e) => {
-          setPass(e.target.value);
-        }}
-      ></InputText>
-
-      <Link to="/create">
-        <ActionButton solid>Entrar</ActionButton>
+      <Link to="/dashboard">
+        <ActionButton solid>Sou passageiro</ActionButton>
+      </Link>
+      <Link to="/login">
+        <ActionButton>Área administrativa</ActionButton>
       </Link>
     </Container>
   );
 };
 
-export default Login;
+export default SelectPermission;
