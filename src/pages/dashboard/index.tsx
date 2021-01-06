@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import Card from "../../components/Card";
 import Header from "../../components/Header";
 import {
@@ -105,26 +107,37 @@ const Dashboard: React.FC<Dash> = (props: any) => {
           </>
         ) : null}
 
-        {buses && buses.length > 0
-          ? buses?.map((bus: CardProps, i) => {
-              let number = Math.floor(Math.random() * 6 - 0 + 1);
-              // console.log(number);
+        {buses && buses.length > 0 ? (
+          buses?.map((bus: CardProps, i) => {
+            let number = Math.floor(Math.random() * 6 - 0 + 1);
+            // console.log(number);
 
-              return (
-                <Card
-                  key={i}
-                  startCity={bus.cityStart}
-                  endCity={bus.cityEnd}
-                  value={bus.value}
-                  onRoad={true}
-                  hour={bus.hour}
-                  company={bus.company}
-                  days={bus.days}
-                  color={colors[number]}
-                />
-              );
-            })
-          : null}
+            return (
+              <Card
+                key={i}
+                startCity={bus.cityStart}
+                endCity={bus.cityEnd}
+                value={bus.value}
+                onRoad={true}
+                hour={bus.hour}
+                company={bus.company}
+                days={bus.days}
+                color={colors[number]}
+              />
+            );
+          })
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              height: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress />
+          </div>
+        )}
       </Container>
     </Wrapper>
   );
