@@ -1,3 +1,4 @@
+import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import React, { useEffect, useState } from "react";
 import BusCard from "../../components/BusCard";
 import Card from "../../components/Card";
@@ -24,6 +25,7 @@ const Create: React.FC = () => {
   const [cityStart, setCityStart] = useState("");
   const [cityEnd, setCityEnd] = useState("");
   const [value, setValue] = useState("");
+  const [hour, setHour] = useState("");
   const [company, setCompany] = useState("");
   const [search, setSearch] = useState("");
   const [buses, setBuses] = useState([]);
@@ -85,17 +87,6 @@ const Create: React.FC = () => {
     };
   };
 
-  let colors = [
-    "#623CEA",
-    "#54426B",
-    "#FCE762",
-    "#161032",
-    "#C42021",
-    "#2B2D42",
-    "#F7EC59",
-    "#F15025",
-  ];
-
   useEffect(() => {
     try {
       getAllBuses();
@@ -127,9 +118,7 @@ const Create: React.FC = () => {
       method: "POST",
       body: JSON.stringify({ cityStart: e }),
     });
-    // console.log(res);
     let resJSON = await res.json();
-    // console.log(resJSON);
     if (resJSON.message) {
       alert(resJSON.message);
     } else {
@@ -141,16 +130,33 @@ const Create: React.FC = () => {
     <Wrapper>
       <Container>
         <TitlePage>Criar uma nova jornada</TitlePage>
-        <InputText placeholder="Cidade de partida" />
-        <InputText placeholder="Cidade de destino" />
-        <InputText placeholder="Valor da passagem - R$ 3,00" type="number" />
-        <InputText placeholder="Horário - 10h00" />
         <InputText
-          value={search}
+          placeholder="Cidade de partida"
+          value={cityStart}
+          onChange={(e) => setCityStart(e.target.value)}
+        />
+        <InputText
+          placeholder="Cidade de destino"
+          value={cityEnd}
+          onChange={(e) => setCityEnd(e.target.value)}
+        />
+        <InputText
+          placeholder="Valor da passagem - R$ 3,00"
+          type="number"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <InputText
+          placeholder="Horário - 10h00"
+          value={hour}
+          onChange={(e) => setHour(e.target.value)}
+        />
+        <InputText
+          value={company}
           type="text"
           list="data"
           placeholder="Nome da empresa"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setCompany(e.target.value)}
         ></InputText>
 
         <Text>Selecione os dias disponiveis</Text>
@@ -193,6 +199,13 @@ const Create: React.FC = () => {
         >
           Criar jornada
         </ActionButton>
+        <ActionButton
+          onClick={() => {
+            console.log(json);
+          }}
+        >
+          Alterar valor da passagem
+        </ActionButton>
       </Container>
 
       <ContainerCards>
@@ -200,18 +213,29 @@ const Create: React.FC = () => {
           <SearchBar placeholder="Buscar por cidade ou horário"></SearchBar>
         </SearchBarContainer>
         <BusContainer>
-          {buses && buses.length > 0
-            ? buses?.map((bus: any, i) => {
-                return (
-                  <BusCard
-                    key={i}
-                    cityStart={bus.cityStart}
-                    cityEnd={bus.cityEnd}
-                    hour={bus.hour}
-                  />
-                );
-              })
-            : null}
+          {buses && buses.length > 0 ? (
+            buses?.map((bus: any, i) => {
+              return (
+                <BusCard
+                  key={i}
+                  cityStart={bus.cityStart}
+                  cityEnd={bus.cityEnd}
+                  hour={bus.hour}
+                />
+              );
+            })
+          ) : (
+            <div
+              style={{
+                display: "flex",
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <CircularProgress />
+            </div>
+          )}
         </BusContainer>
       </ContainerCards>
     </Wrapper>

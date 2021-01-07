@@ -47,7 +47,7 @@ function App() {
           <Route path="/dashboard">
             <Dashboard auth={isAuthenticated} />
           </Route>
-          {!isAuthenticated ? (
+          {isAuthenticated ? (
             <Route path="/create">
               <CreateJourney />
             </Route>

@@ -6,9 +6,11 @@ interface Props {
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-
+  width: 90vw;
   @media (max-width: 1000px) {
+    justify-content: space-evenly;
     flex-direction: column;
+    padding: 20px;
   }
 `;
 export const Container = styled.div`

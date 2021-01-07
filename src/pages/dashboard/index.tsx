@@ -122,7 +122,7 @@ const Dashboard: React.FC<Dash> = (props: any) => {
                 hour={bus.hour}
                 company={bus.company}
                 days={bus.days}
-                color={colors[number]}
+                color={bus.company == "Gardenia" ? "#9c292a" : "#9c8729"}
               />
             );
           })

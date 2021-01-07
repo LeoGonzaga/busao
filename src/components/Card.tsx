@@ -25,11 +25,12 @@ export const Container = styled.div`
   width: 60%;
   height: 250px;
   margin: 10px auto;
-  background-color: ${(props: ColorCard) =>
-    props.color ? "#161032" : "#770606"};
+  background-color: ${(props: ColorCard) => props.color};
   color: #fff;
   padding: 30px;
   border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  
 
   @media (max-width: 780px) {
     flex-direction: column;
