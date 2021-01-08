@@ -29,17 +29,6 @@ const Dashboard: React.FC<Dash> = (props: any) => {
   const [buses, setBuses] = useState([]);
   const [city, setCity] = useState("");
 
-  let colors = [
-    "#623CEA",
-    "#54426B",
-    "#FCE762",
-    "#161032",
-    "#C42021",
-    "#2B2D42",
-    "#F7EC59",
-    "#F15025",
-  ];
-
   useEffect(() => {
     try {
       console.log(props);
@@ -109,9 +98,6 @@ const Dashboard: React.FC<Dash> = (props: any) => {
 
         {buses && buses.length > 0 ? (
           buses?.map((bus: CardProps, i) => {
-            let number = Math.floor(Math.random() * 6 - 0 + 1);
-            // console.log(number);
-
             return (
               <Card
                 key={i}

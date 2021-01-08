@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { URL } from "../../API";
 import {
   Container,
   Logo,
@@ -8,14 +10,13 @@ import {
   ActionButton,
 } from "./styles";
 import BusaoLogo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
 const SelectPermission: React.FC = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
   const login = async () => {
     try {
-      let res = await fetch("https://busao.herokuapp.com/login", {
+      let res = await fetch(`${URL}/login`, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

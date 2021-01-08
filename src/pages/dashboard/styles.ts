@@ -1,14 +1,13 @@
 import styled from "styled-components";
 
-export const Grid = styled.div`
-  display: flex;
-  background-color: #000;
-  width: 100vw;
-`;
 export const Wrapper = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   width: 100vw;
+  overflow-x: hidden;
+  justify-content: center;
+  align-items: center;
 `;
 export const Container = styled.div`
   display: flex;
@@ -16,20 +15,9 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  align-content: center;
-  width: 90vw;
+  width: 100vw;
   height: 100vh;
-  margin: 0 auto;
-  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
   border-radius: 4px;
-`;
-export const Weather = styled.div`
-  width: 30vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
 `;
 
 export const ClearContainer = styled.div`

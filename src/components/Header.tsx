@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import TuneIcon from "@material-ui/icons/Tune";
-import SearchIcon from "@material-ui/icons/Search";
-import BusaoLogo from "../assets/logo.png";
-
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import SearchIcon from "@material-ui/icons/Search";
+
+import { URL } from "../API";
+import BusaoLogo from "../assets/logo.png";
 
 const useStyles = makeStyles((theme: any) =>
   createStyles({
@@ -95,7 +96,7 @@ const Header: React.FC<HeaderProps> = (props) => {
 
   const getAllCitysForDataList = async () => {
     try {
-      let res = await fetch("https://busao.herokuapp.com/Names");
+      let res = await fetch(`${URL}/Names`);
       let resJSON = await res.json();
 
       console.log(resJSON);
