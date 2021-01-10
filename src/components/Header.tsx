@@ -7,14 +7,7 @@ import SearchIcon from "@material-ui/icons/Search";
 
 import { URL } from "../API";
 import BusaoLogo from "../assets/logo.png";
-
-const useStyles = makeStyles((theme: any) =>
-  createStyles({
-    root: {
-      color: "#fff",
-    },
-  })
-);
+import TransitionsModal from "./Drawer";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -22,7 +15,9 @@ export const Wrapper = styled.div`
   align-items: center;
   align-content: center;
   width: 100vw;
-  margin: 10px 0;
+  position: fixed;
+  background-color: #fff;
+  padding: 10px 0;
 `;
 export const Container = styled.div`
   display: flex;
@@ -32,6 +27,7 @@ export const Container = styled.div`
   align-content: center;
   width: 80vw;
   margin: 0 auto;
+  margin-bottom: 100px;
 `;
 
 export const LogoContainer = styled.div`
@@ -52,13 +48,16 @@ export const Username = styled.h1`
 export const SearchBarContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 50vw;
+  width: 55vw;
   min-width: 200px;
 `;
-export const SearchBar = styled.input`
+export const SearchBar = styled.select`
   padding: 15px;
   border: 1px solid #ccc;
   width: 100%;
+  border-radius: 4px;
+  background-color: #161032;
+  color: #fff;
 `;
 
 export const SearchBarButton = styled.button`
@@ -68,6 +67,7 @@ export const SearchBarButton = styled.button`
   background-color: #161032;
   border: none;
 `;
+
 export const SettingsButton = styled.button`
   width: 40px;
   height: 40px;
@@ -79,39 +79,11 @@ export const SettingsButton = styled.button`
 interface HeaderProps {
   getBus: any;
   isAdmin: boolean;
+  reset?: string;
+  getByCompany?: any;
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
-  const classes = useStyles();
-  const [search, setSearch] = useState("");
-  const [citys, setCitys] = useState([]);
-  const getBusesBysearch = async () => {
-    props.getBus(search);
-  };
-
-  const onFormSubmit = (e: any) => {
-    e.preventDefault();
-    console.log("enter");
-  };
-
-  const getAllCitysForDataList = async () => {
-    try {
-      let res = await fetch(`${URL}/Names`);
-      let resJSON = await res.json();
-
-      console.log(resJSON);
-      if (resJSON) {
-        setCitys(resJSON);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(() => {
-    getAllCitysForDataList();
-  }, []);
-
   return (
     <Container>
       <Wrapper>
@@ -119,46 +91,8 @@ const Header: React.FC<HeaderProps> = (props) => {
           <Logo src={BusaoLogo}></Logo>
         </LogoContainer>
 
-        {props.isAdmin ? (
-          <Link to="/create">
-            <SettingsButton
-              onClick={() => {
-                alert("Filtros em desenvolvimento. ");
-              }}
-            >
-              <TuneIcon className={classes.root} />
-            </SettingsButton>
-          </Link>
-        ) : null}
+        <TransitionsModal buscar={props.getByCompany} />
       </Wrapper>
-      <form onSubmit={(e) => onFormSubmit(e)}>
-        <SearchBarContainer>
-          <SearchBar
-            value={search}
-            type="text"
-            list="data"
-            placeholder="Buscar por cidade"
-            onChange={(e) => setSearch(e.target.value)}
-          ></SearchBar>
-
-          <datalist id="data">
-            {citys && citys.length > 0
-              ? citys.map((city, index) => {
-                  return <option key={index} value={city} />;
-                })
-              : null}
-          </datalist>
-          <SearchBarButton
-            type="submit"
-            onClick={async () => {
-              await getBusesBysearch();
-              setSearch("");
-            }}
-          >
-            <SearchIcon className={classes.root} />
-          </SearchBarButton>
-        </SearchBarContainer>
-      </form>
     </Container>
   );
 };

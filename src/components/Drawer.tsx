@@ -1,84 +1,247 @@
-import React from "react";
-import clsx from "clsx";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import styled from "styled-components";
+import TuneIcon from "@material-ui/icons/Tune";
+import DiscreteSlider from "../components/Slider";
+import { URL } from "../API";
 
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: "auto",
-  },
-});
+export const SettingsButton = styled.button`
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: #161032;
+  border: none;
+`;
 
-export default function SwipeableTemporaryDrawer(props: any) {
+export const SearchBarContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 200px;
+  flex-direction: column;
+`;
+export const SearchBar = styled.select`
+  padding: 15px;
+  border: 1px solid #ccc;
+  width: 100%;
+  border-radius: 4px;
+  background-color: #161032;
+  color: #fff;
+`;
+
+export const Title = styled.h3`
+  color: #000;
+  padding: 10px;
+  font-weight: normal;
+  font-size: 16px;
+`;
+
+interface Props {
+  solid?: boolean;
+}
+
+export const ActionButton = styled.button`
+  padding: 15px;
+  width: 100%;
+  margin: 5px 0;
+  border-radius: 5px;
+  background-color: ${(props: Props) => (props.solid ? "#161032" : "#fff")};
+  border: none;
+  color: ${(props: Props) => (props.solid ? "#fff" : "#161032")};
+  font-weight: bold;
+  border: 1px solid #ccc;
+`;
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
+    flexDirection: "column",
+    border: "none",
+    textAlign: "center",
+    "&:hover,&:focus": {
+      border: "none",
+    },
+  },
+  paper: {
+    backgroundColor: "#fff",
+    padding: theme.spacing(2, 4, 3),
+  },
+  root: {
+    color: "#fff",
+  },
+}));
+
+interface Modal {
+  buscar?: any;
+}
+export default function TransitionsModal(props: Modal) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
+  const [open, setOpen] = React.useState(false);
 
-  const toggleDrawer = (anchor: any, open: any) => (event: any) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
+  const [cityStart, setCityStart] = React.useState([]);
+  const [cityEnd, setCityEnd] = React.useState([]);
+  const [company, setCompany] = React.useState();
+  const [hour, setHour] = React.useState();
+
+  const [selectStart, setSelectStart] = React.useState("Selecionar");
+  const [selectEnd, setSelectEnd] = React.useState("Selecionar");
+  const [selectHour, setSelectHour] = React.useState("");
+  const [selectCompany, setSelectCompany] = React.useState("Selecionar");
+
+  const [allBus, setAllBus] = React.useState([]);
+
+  const getAllCitysForDataList = async () => {
+    try {
+      let res = await fetch(`${URL}/Names`);
+      // console.log(`${URL}/Names`);
+      let resJSON = await res.json();
+
+      // console.log(resJSON);
+      if (resJSON) {
+        setCityStart(resJSON);
+        setCityEnd(resJSON);
+      }
+    } catch (e) {
+      console.log(e);
     }
-
-    setState({ ...state, [anchor]: open });
   };
 
-  const list = (anchor: any) => (
-    <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom",
-      })}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </div>
-  );
+  useEffect(() => {
+    getAllCitysForDataList();
+  }, []);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    // console.log("Companhia", selectCompany);
+    // console.log("Inicio", selectStart);
+    // console.log("Final", selectEnd);
+    if (selectCompany == "Selecionar") {
+      setSelectStart("Selecionar");
+      setSelectEnd("Selecionar");
+    } else if (selectStart == "Selecionar") {
+      setSelectEnd("Selecionar");
+    }
+  }, [selectCompany, selectStart, selectEnd, selectHour]);
+
+  const getValue = (value: any) => {
+    setSelectHour(value);
+  };
 
   return (
-    <div>
-      {["left"].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-          <SwipeableDrawer
-            anchor={anchor as any}
-            open={props.open}
-            onClose={toggleDrawer(anchor, false)}
-            onOpen={toggleDrawer(anchor, true)}
-          >
-            {list(anchor)}
-          </SwipeableDrawer>
-        </React.Fragment>
-      ))}
-    </div>
+    <>
+      <SettingsButton onClick={handleOpen}>
+        <TuneIcon className={classes.root} />
+      </SettingsButton>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+            <SearchBarContainer>
+              <h2>Filtar por:</h2>
+            </SearchBarContainer>
+            <SearchBarContainer>
+              <Title>Companhia</Title>
+              <SearchBar
+                name="start"
+                id="start"
+                value={selectCompany}
+                onChange={async (e: any) => {
+                  setSelectCompany(e.target.value);
+                }}
+              >
+                <option value="Selecionar">Selecionar cidade</option>
+                <option value="Irmãos Faria">Irmãos Faria</option>
+                <option value="Gardenia">Gardenia</option>
+              </SearchBar>
+            </SearchBarContainer>
+
+            <SearchBarContainer>
+              <Title>Partida</Title>
+              <SearchBar
+                disabled={selectCompany == "Selecionar" ? true : false}
+                name="end"
+                id="end"
+                value={selectStart}
+                onChange={async (e: any) => {
+                  setSelectStart(e.target.value);
+                }}
+              >
+                <option value="Selecionar">Selecionar cidade</option>
+
+                {cityStart && cityStart.length > 0
+                  ? cityStart.map((city: any, index) => {
+                      return (
+                        <option key={index} value={city}>
+                          {city}
+                        </option>
+                      );
+                    })
+                  : null}
+              </SearchBar>
+            </SearchBarContainer>
+
+            <SearchBarContainer>
+              <Title>Chegada</Title>
+              <SearchBar
+                disabled={selectStart == "Selecionar" ? true : false}
+                name="cars"
+                id="cars"
+                value={selectEnd}
+                onChange={async (e: any) => {
+                  setSelectEnd(e.target.value);
+                }}
+              >
+                <option value="Selecionar">Selecionar cidade</option>
+
+                {cityEnd && cityEnd.length > 0
+                  ? cityEnd.map((city, index) => {
+                      return (
+                        <option key={index} value={city}>
+                          {city}
+                        </option>
+                      );
+                    })
+                  : null}
+              </SearchBar>
+            </SearchBarContainer>
+
+            <DiscreteSlider data={selectHour} onChance={getValue} />
+
+            <ActionButton
+              solid
+              onClick={() => {
+                props.buscar(selectCompany, selectStart, selectEnd, selectHour);
+                handleClose();
+              }}
+            >
+              Buscar
+            </ActionButton>
+          </div>
+        </Fade>
+      </Modal>
+    </>
   );
 }

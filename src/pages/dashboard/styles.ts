@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  width: 100vw;
+  width: 90vw;
   overflow-x: hidden;
   justify-content: center;
   align-items: center;
@@ -15,7 +15,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 90vw;
   height: 100vh;
   border-radius: 4px;
 `;

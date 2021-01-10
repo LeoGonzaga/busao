@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import BusaoLogo from "../assets/logo.png";
+import Faria from "../assets/faria.png";
+import Gardenia from "../assets/gardenia.png";
 import DayButton from "./DayButton";
 
 interface Card {
@@ -30,9 +31,8 @@ export const Container = styled.div`
   padding: 30px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  
 
-  @media (max-width: 780px) {
+  @media (max-width: 890px) {
     flex-direction: column;
     justify-content: center;
   }
@@ -41,12 +41,14 @@ export const Container = styled.div`
 export const OnRoad = styled.div`
   display: flex;
   flex-direction: column;
+  background-size: cover;
 `;
 
 export const BusImage = styled.img`
-  width: 92px;
-  height: 92px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
+  margin: 10px 0;
 `;
 export const OnRoadTitle = styled.h1`
   font-size: 19px;
@@ -116,8 +118,8 @@ const Card: React.FC<Card> = ({
   return (
     <Container color={color}>
       <OnRoad>
-        <BusImage src={BusaoLogo} />
-        <OnRoadTitle>{company}</OnRoadTitle>
+        <BusImage src={company == "Gardenia" ? Gardenia : Faria} />
+        {/* <OnRoadTitle>{company}</OnRoadTitle> */}
       </OnRoad>
       <Details>
         <div>
