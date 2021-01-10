@@ -172,7 +172,7 @@ export default function TransitionsModal(props: Modal) {
                   setSelectCompany(e.target.value);
                 }}
               >
-                <option value="Selecionar">Selecionar cidade</option>
+                <option value="Selecionar">Selecionar companhia</option>
                 <option value="Irmãos Faria">Irmãos Faria</option>
                 <option value="Gardenia">Gardenia</option>
               </SearchBar>
