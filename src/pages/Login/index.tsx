@@ -6,16 +6,19 @@ import {
   Title,
   SubTitle,
   ActionButton,
+  Form,
 } from "./styles";
 import BusaoLogo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 
 const Login: React.FC = () => {
+  let history = useHistory();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
-  const login = async () => {
+  const login = async (e?: any) => {
     try {
+      e.preventDefault();
       let res = await fetch("https://busao.herokuapp.com/login", {
         headers: {
           Accept: "application/json",
@@ -27,6 +30,14 @@ const Login: React.FC = () => {
 
       let resJson = await res.json();
       console.log(resJson);
+
+      if (resJson.user) {
+        history.push("/create");
+      } else {
+        alert(
+          "Hmmmmm! Parece que você não tem permissão ou digitou os dados errados."
+        );
+      }
     } catch (e) {
       console.log(e);
     }
@@ -34,30 +45,31 @@ const Login: React.FC = () => {
 
   return (
     <Container>
-      <Logo src={BusaoLogo} />
-      <Title>Busão</Title>
-      <SubTitle>Horários na palma da sua mão</SubTitle>
+      <Form onSubmit={login}>
+        <Logo src={BusaoLogo} />
+        <Title>Busão</Title>
+        <SubTitle>Horários na palma da sua mão</SubTitle>
+        <InputText
+          value={email}
+          placeholder="Digite seu email"
+          type="email"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        ></InputText>
+        <InputText
+          value={pass}
+          placeholder="Digite sua senha "
+          type="password"
+          onChange={(e) => {
+            setPass(e.target.value);
+          }}
+        ></InputText>
 
-      <InputText
-        value={email}
-        placeholder="Digite seu email"
-        type="email"
-        onChange={(e) => {
-          setEmail(e.target.value);
-        }}
-      ></InputText>
-      <InputText
-        value={pass}
-        placeholder="Digite sua senha "
-        type="password"
-        onChange={(e) => {
-          setPass(e.target.value);
-        }}
-      ></InputText>
-
-      <Link to="/create">
-        <ActionButton solid>Entrar</ActionButton>
-      </Link>
+        <ActionButton solid type="submit">
+          Entrar
+        </ActionButton>
+      </Form>
     </Container>
   );
 };

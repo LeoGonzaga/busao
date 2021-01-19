@@ -40,9 +40,9 @@ const SelectPermission: React.FC = () => {
       <Link to="/dashboard">
         <ActionButton solid>Sou passageiro</ActionButton>
       </Link>
-      {/* <Link to="/login"> */}
-      <ActionButton>Área administrativa</ActionButton>
-      {/* </Link> */}
+      <Link to="/login">
+        <ActionButton>Área administrativa</ActionButton>
+      </Link>
     </Container>
   );
 };

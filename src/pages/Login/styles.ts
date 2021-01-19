@@ -15,6 +15,17 @@ export const Container = styled.div`
   margin: 0 auto;
 `;
 
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  margin: 0px;
+`;
+
 export const Logo = styled.img`
   border-radius: 50%;
   width: 200px;
