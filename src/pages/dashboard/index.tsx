@@ -43,7 +43,7 @@ const Dashboard: React.FC<Dash> = (props: any) => {
 
   const getAllBuses = async () => {
     setResetDropDown("");
-    let res = await fetch("https://busao.herokuapp.com/Buses");
+    let res = await fetch(URL + "/Buses");
     // console.log(res);
     let resJSON = await res.json();
     // console.log(resJSON);
@@ -62,7 +62,7 @@ const Dashboard: React.FC<Dash> = (props: any) => {
       return;
     }
     setCity(e);
-    let res = await fetch("https://busao.herokuapp.com/busByCity", {
+    let res = await fetch(URL + "/busByCity", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

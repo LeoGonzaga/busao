@@ -19,11 +19,16 @@ import {
   SearchBar,
   BusContainer,
   SearchBarButton,
+  MaskInput,
 } from "./styles";
 
+import { URL } from "../../API";
 const Create: React.FC = () => {
-  const [cityStart, setCityStart] = useState("");
-  const [cityEnd, setCityEnd] = useState("");
+  const [cityStart, setCityStart] = useState([]);
+  const [cityEnd, setCityEnd] = useState([]);
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
+
   const [value, setValue] = useState("");
   const [hour, setHour] = useState("");
   const [company, setCompany] = useState("");
@@ -90,6 +95,7 @@ const Create: React.FC = () => {
   useEffect(() => {
     try {
       getAllBuses();
+      getAllCitysForDataList();
     } catch (e) {
       console.log("Entrou no catch" + e);
     }
@@ -107,50 +113,76 @@ const Create: React.FC = () => {
     }
   };
 
-  const getBusesByCity = async (e: any) => {
-    console.log("cliquei", e);
-    setCity(e);
-    let res = await fetch("https://busao.herokuapp.com/busByCity", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({ cityStart: e }),
-    });
-    let resJSON = await res.json();
-    if (resJSON.message) {
-      alert(resJSON.message);
-    } else {
-      setBuses(resJSON);
+  const getAllCitysForDataList = async () => {
+    try {
+      let res = await fetch(`${URL}/Names`);
+      console.log(`${URL}/Names`);
+      let resJSON = await res.json();
+
+      console.log(resJSON);
+      if (resJSON) {
+        setCityStart(resJSON);
+        setCityEnd(resJSON);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
+  const createNewJourney = async () => {
+    try {
+      let maskHour = hour.split(":");
+      console.log(maskHour);
+      let configureHour = maskHour[0] + "h" + maskHour[1];
+      console.log(configureHour);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <Wrapper>
       <Container>
         <TitlePage>Criar uma nova jornada</TitlePage>
         <InputText
+          list="start"
           placeholder="Cidade de partida"
-          value={cityStart}
-          onChange={(e) => setCityStart(e.target.value)}
+          onChange={(e) => setStart(e.target.value)}
+          value={start}
         />
+
+        <datalist id="start">
+          {cityStart.length > 0 &&
+            cityStart.map((city) => {
+              return <option value={city} key={city} />;
+            })}
+        </datalist>
+
         <InputText
           placeholder="Cidade de destino"
-          value={cityEnd}
-          onChange={(e) => setCityEnd(e.target.value)}
+          list="end"
+          value={end}
+          onChange={(e) => setEnd(e.target.value)}
         />
+        <datalist id="end">
+          {cityEnd.length > 0 &&
+            cityEnd.map((city) => {
+              return <option value={city} key={city} />;
+            })}
+        </datalist>
+
         <InputText
-          placeholder="Valor da passagem - R$ 3,00"
-          type="number"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <InputText
-          placeholder="Horário - 10h00"
+          type="time"
           value={hour}
           onChange={(e) => setHour(e.target.value)}
-        />
+        ></InputText>
+
+        <MaskInput
+          mask="99.99"
+          placeholder="Valor da passagem - R$ 3,00"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        ></MaskInput>
+
         <InputText
           value={company}
           type="text"
@@ -194,7 +226,8 @@ const Create: React.FC = () => {
         <ActionButton
           solid
           onClick={() => {
-            console.log(json);
+            console.log(hour);
+            createNewJourney();
           }}
         >
           Criar jornada

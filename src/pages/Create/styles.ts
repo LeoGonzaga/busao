@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import InputMask from "react-input-mask";
 
 interface Props {
   solid?: boolean;
@@ -43,6 +44,22 @@ export const TitlePage = styled.h1`
   font-size: 24px;
   color: #161032;
   padding: 10px;
+`;
+
+export const MaskInput = styled(InputMask)`
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: 389px;
+  max-width: 389px;
+  margin: 5px 0;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+  outline-color: #161032;
+  @media (max-width: 420px) {
+    width: 85%;
+    margin: 5px 10px;
+  }
 `;
 
 export const JourneyTitle = styled.h1``;
