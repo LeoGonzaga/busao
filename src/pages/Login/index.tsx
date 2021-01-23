@@ -10,6 +10,7 @@ import {
 } from "./styles";
 import BusaoLogo from "../../assets/logo.png";
 import { Link, Redirect, useHistory } from "react-router-dom";
+import { URL } from "../../API";
 
 const Login: React.FC = () => {
   let history = useHistory();
@@ -19,7 +20,7 @@ const Login: React.FC = () => {
   const login = async (e?: any) => {
     try {
       e.preventDefault();
-      let res = await fetch("https://busao.herokuapp.com/login", {
+      let res = await fetch(URL + "/login", {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
