@@ -11,27 +11,6 @@ import {
 } from "./styles";
 import BusaoLogo from "../../assets/logo.png";
 const SelectPermission: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-
-  const login = async () => {
-    try {
-      let res = await fetch(`${URL}/login`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify({ email, pass }),
-      });
-
-      let resJson = await res.json();
-      console.log(resJson);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   return (
     <Container>
       <Logo src={BusaoLogo} />

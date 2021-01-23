@@ -12,6 +12,8 @@ import SelectPermission from "./pages/SelectPermission/index";
 import Dashboard from "./pages/dashboard/index";
 import CreateJourney from "./pages/Create/index";
 import Login from "./pages/Login/index";
+
+
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
 
@@ -25,7 +27,6 @@ function App() {
       if (token) {
         userHasAuthenticated(true);
       } else {
-        console.log("Sem permissão");
         userHasAuthenticated(false);
       }
     } catch (e) {
@@ -47,7 +48,7 @@ function App() {
           <Route path="/dashboard">
             <Dashboard auth={isAuthenticated} />
           </Route>
-          {!isAuthenticated ? (
+          {isAuthenticated ? (
             <Route path="/create">
               <CreateJourney />
             </Route>

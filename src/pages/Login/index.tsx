@@ -17,9 +17,9 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
-  const login = async (e?: any) => {
+  const login = async () => {
     try {
-      e.preventDefault();
+      console.log("entrou");
       let res = await fetch(URL + "/login", {
         headers: {
           Accept: "application/json",
@@ -31,8 +31,9 @@ const Login: React.FC = () => {
 
       let resJson = await res.json();
       console.log(resJson);
-
       if (resJson.user) {
+        await localStorage.setItem("token", resJson.user._id);
+
         history.push("/create");
       } else {
         alert(
@@ -46,31 +47,29 @@ const Login: React.FC = () => {
 
   return (
     <Container>
-      <Form onSubmit={login}>
-        <Logo src={BusaoLogo} />
-        <Title>Busão</Title>
-        <SubTitle>Horários na palma da sua mão</SubTitle>
-        <InputText
-          value={email}
-          placeholder="Digite seu email"
-          type="email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        ></InputText>
-        <InputText
-          value={pass}
-          placeholder="Digite sua senha "
-          type="password"
-          onChange={(e) => {
-            setPass(e.target.value);
-          }}
-        ></InputText>
+      <Logo src={BusaoLogo} />
+      <Title>Busão</Title>
+      <SubTitle>Horários na palma da sua mão</SubTitle>
+      <InputText
+        value={email}
+        placeholder="Digite seu email"
+        type="email"
+        onChange={(e) => {
+          setEmail(e.target.value);
+        }}
+      ></InputText>
+      <InputText
+        value={pass}
+        placeholder="Digite sua senha "
+        type="password"
+        onChange={(e) => {
+          setPass(e.target.value);
+        }}
+      ></InputText>
 
-        <ActionButton solid type="submit">
-          Entrar
-        </ActionButton>
-      </Form>
+      <ActionButton solid onClick={() => login()}>
+        Entrar
+      </ActionButton>
     </Container>
   );
 };

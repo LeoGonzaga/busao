@@ -36,7 +36,7 @@ const Create: React.FC = () => {
   const [buses, setBuses] = useState([]);
 
   const [city, setCity] = useState("");
-
+  const [reload, setReload] = useState(false);
   const daysArray: any = [];
   let json = {
     Seg: false,
@@ -119,7 +119,7 @@ const Create: React.FC = () => {
       console.log(`${URL}/Names`);
       let resJSON = await res.json();
 
-      console.log(resJSON);
+      // console.log(resJSON);
       if (resJSON) {
         setCityStart(resJSON);
         setCityEnd(resJSON);
@@ -131,14 +131,57 @@ const Create: React.FC = () => {
 
   const createNewJourney = async () => {
     try {
+      if (!hour || !start || !end || !company || !value) {
+        alert("Por favor, preencha todos os campos para continuar!");
+        return;
+      }
       let maskHour = hour.split(":");
       console.log(maskHour);
       let configureHour = maskHour[0] + "h" + maskHour[1];
-      console.log(configureHour);
+
+      // console.log(json);
+      let data = {
+        hour: configureHour,
+        cityStart: start,
+        cityEnd: end,
+        value: parseFloat(value),
+        citys: [],
+        company: company,
+        onRoad: false,
+        days: json,
+        holidays: false,
+      };
+
+      // console.log(data);
+
+      let res = await fetch(URL + "/createRoute", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+
+      let resJson = await res.json();
+      setReload(true);
+      if (resJson.citys) {
+        alert("Jornada criada com sucesso!");
+      } else {
+        alert("Ops! Alguma coisa deu errada!");
+      }
+      // console.log(resJson);
     } catch (e) {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    if (reload) {
+      getAllBuses();
+      setReload(false);
+    }
+  }, [reload]);
   return (
     <Wrapper>
       <Container>
@@ -190,6 +233,10 @@ const Create: React.FC = () => {
           placeholder="Nome da empresa"
           onChange={(e) => setCompany(e.target.value)}
         ></InputText>
+        <datalist id="data">
+          <option value="Irmãos Faria"></option>
+          <option value="Gardenia"></option>
+        </datalist>
 
         <Text>Selecione os dias disponiveis</Text>
         <WeekContinaer>
@@ -232,18 +279,19 @@ const Create: React.FC = () => {
         >
           Criar jornada
         </ActionButton>
-        <ActionButton
+        {/* <ActionButton
           onClick={() => {
             console.log(json);
+            alert("Ainda estamos desenvolvendo essa funcionalidade!");
           }}
         >
           Alterar valor da passagem
-        </ActionButton>
+        </ActionButton> */}
       </Container>
 
       <ContainerCards>
         <SearchBarContainer>
-          <SearchBar placeholder="Buscar por cidade ou horário"></SearchBar>
+          {/* <SearchBar placeholder="Buscar por cidade ou horário"></SearchBar> */}
         </SearchBarContainer>
         <BusContainer>
           {buses && buses.length > 0 ? (
