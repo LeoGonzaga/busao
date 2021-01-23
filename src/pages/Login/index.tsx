@@ -19,7 +19,7 @@ const Login: React.FC = () => {
 
   const login = async () => {
     try {
-      console.log("entrou");
+      // console.log("entrou");
       let res = await fetch(URL + "/login", {
         headers: {
           Accept: "application/json",
@@ -30,7 +30,7 @@ const Login: React.FC = () => {
       });
 
       let resJson = await res.json();
-      console.log(resJson);
+      // console.log(resJson);
       if (resJson.user) {
         await localStorage.setItem("token", resJson.user._id);
 

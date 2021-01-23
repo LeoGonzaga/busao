@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     onLoad();
-  }, []);
+  }, [isAuthenticated]);
 
   async function onLoad() {
     try {
