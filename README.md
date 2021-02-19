@@ -1,46 +1,72 @@
-# Getting Started with Create React App
+# Busão
+<p align="center">	
+   <a href="https://www.linkedin.com/in/leogonzaga/">
+      <img alt="Léo Gonzaga" src="https://img.shields.io/badge/-Leo Gonzaga-FB250?style=flat&logo=Linkedin&logoColor=white" />
+   </a>
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/LeoGonzaga/busao?color=FB250">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+  <a href="https://github.com/leoGonzaga/insta-front-followers-bbb/commits/main">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/leoGonzaga/busao?color=FB250">
+  </a> 
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-FB250">
 
-## Available Scripts
+</p>
 
-In the project directory, you can run:
+> :rocket: Painel de gerenciamento de horários de onibus nas cidades de Pedralva, Itajubá, Conceição das Pedras, Natercia e Piranguinho.
 
-### `yarn start`
+<div align="center">
+  <sub>Busão. Feito com ❤︎ por
+    <a href="https://github.com/LeoGonzaga">Léo Gonzaga</a> 
+  </sub>
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# :pushpin: Conteúdo
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* [Tecnologias](#computer-Tecnologias)
+* [Como executar](#construction_worker-how-to-run)
+* [Licença](#closed_book-license)
 
-### `yarn test`
+<div align="center">
+   <p>Acessar por: https://busao.netlify.app </p>  
+</div>   
+   
+<p align="center">
+ <img src="https://github.com/LeoGonzaga/busao/blob/main/screenshot.png" width="80%">
+</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+# :computer: Tecnologias
+Esse projeto foi desenvolvido utlizando:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* TypeScript
+* ReactJS
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# :construction_worker: How to run
+```bash
+# Clone Repository
+$ git clone https://github.com/LeoGonzaga/busao.git
+```
+### 💻 Run Web Project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+# Entre na pasta
+$ cd busao
 
-### `yarn eject`
+# Instale as dependências
+$ yarn install
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Rode a aplicação
+$ yarn start
+```
+Go to http://localhost:3000/ to see the result.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# :closed_book: License
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Released in 2020 :closed_book: License
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Made with love by [Léo Gonzaga](https://github.com/LeoGonzaga) 🚀.
+This project is under the [MIT license](./LICENSE).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
